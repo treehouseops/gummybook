@@ -8,7 +8,6 @@ gem "rails", "~> 7.1.1"
 
 gem 'webpacker', '~> 5.0'
 
-
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
