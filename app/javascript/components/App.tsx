@@ -1,7 +1,12 @@
 import React from "react";
+import QuestionForm from "./Form";
 
 const App = () => {
-  return <div>Here is the app</div>;
+  return (
+    <div>
+      <QuestionForm />
+    </div>
+  );
 };
 
 export default App;
