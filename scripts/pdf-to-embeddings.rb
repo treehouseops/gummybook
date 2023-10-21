@@ -1,11 +1,9 @@
-require 'dotenv/load'
-require 'pdf-reader'
-require 'csv'
+require "dotenv/load"
+require "pdf-reader"
+require "csv"
 require "ruby/openai"
 
-$client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
-
-
+$client = OpenAI::Client.new(access_token: ENV["OPENAI_API_KEY"])
 
 COMPLETIONS_MODEL = "text-davinci-003"
 MODEL_NAME = "curie"
@@ -13,7 +11,7 @@ DOC_EMBEDDINGS_MODEL = "text-search-#{MODEL_NAME}-doc-001"
 
 # GPT2 Tokenizer in Ruby
 def tokenize(text)
-  text.split(' ').size
+  text.split(" ").size
 end
 
 def count_tokens(text)
@@ -21,11 +19,9 @@ def count_tokens(text)
 end
 
 def extract_pages(page_text, index)
-  if page_text.nil? || page_text.empty?
-    return []
-  end
+  return [] if page_text.nil? || page_text.empty?
 
-  content = page_text.split.join(' ')
+  content = page_text.split.join(" ")
   puts "page text: #{content}"
   tokens = count_tokens(content) + 4
   [["Page #{index}", content, tokens]]
@@ -48,25 +44,21 @@ end
 res = res.select { |row| row[2] < 2046 }
 
 # CSV export
-CSV.open('book.pdf.pages.csv', 'w') do |csv|
-  csv << ['title', 'content', 'tokens']
+CSV.open("book.pdf.pages.csv", "w") do |csv|
+  csv << %w[title content tokens]
   res.each { |row| csv << row }
 end
 
 def get_embedding(text, model)
-    begin
-      response = $client.embeddings(parameters: {
-        model: model,
-        input: text
-      })
-      puts "OpenAI API response: #{response}"
-      response['data'][0]['embedding']
-    rescue StandardError => e
-      puts "Error when calling OpenAI API: #{e}"
-      nil
-    end
+  begin
+    response = $client.embeddings(parameters: { model: model, input: text })
+    puts "OpenAI API response: #{response}"
+    response["data"][0]["embedding"]
+  rescue StandardError => e
+    puts "Error when calling OpenAI API: #{e}"
+    nil
   end
-  
+end
 
 def get_doc_embedding(text)
   get_embedding(text, DOC_EMBEDDINGS_MODEL)
@@ -83,8 +75,8 @@ end
 # CSV export for embeddings
 doc_embeddings = compute_doc_embeddings(res)
 
-CSV.open('book.pdf.embeddings.csv', 'w') do |csv|
-  csv << ['title'] + (0..4095).to_a
+CSV.open("book.pdf.embeddings.csv", "w") do |csv|
+  csv << ["title"] + (0..4095).to_a
   doc_embeddings.each do |index, embedding|
     csv << ["Page #{index + 1}"] + embedding
   end
