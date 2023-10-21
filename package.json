@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --config config/webpack/production.js",
+    "webpack": "webpack --config config/webpack/production.js",
     "heroku-postbuild": "npm run build",
     "dev": "foreman start -f Procfile.dev"
 },
