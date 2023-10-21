@@ -4,6 +4,11 @@
   "main": "index.js",
   "author": "Nicole Forrester <nicolelynforrester@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "webpack --config config/webpack/production.js",
+    "heroku-postbuild": "npm run build",
+    "dev": "foreman start -f Procfile.dev"
+},
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/preset-react": "^7.22.15",
