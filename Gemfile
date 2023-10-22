@@ -9,6 +9,8 @@ gem "ruby-openai"
 
 gem 'webpacker', '~> 5.0'
 
+gem 'foreman'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
