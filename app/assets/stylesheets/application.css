@@ -14,31 +14,58 @@
  *= require_self
  */
 
-
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-}
-
-body, div, img {
-    box-sizing: border-box;
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 body {
-    background: #f0fffa;  
-    padding: 1em;
+  background: #f0fffa;
+  padding: 1em;
+  font-family: "Poppins", sans-serif;
+}
+
+body,
+div,
+img {
+  box-sizing: border-box;
+}
+
+textarea,
+button,
+div {
+  font-family: inherit;
 }
 
 .sr-only {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-    white-space: nowrap; /* 1 */
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap; /* 1 */
+}
+
+.loader {
+  border: 3px solid #fff;
+  border-top: 3px solid #74d0e2;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
+  100% {
+    transform: rotate(360deg);
+  }
+}

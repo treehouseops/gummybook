@@ -8,6 +8,7 @@ interface TextAreaProps {
   placeholder?: string;
   rows?: number;
   cols?: number;
+  required?: boolean;
 }
 
 const TextArea: FC<TextAreaProps> = ({
@@ -18,6 +19,7 @@ const TextArea: FC<TextAreaProps> = ({
   placeholder = "",
   rows = 3,
   cols = 30,
+  required,
 }) => {
   return (
     <div className="textarea-group">
@@ -34,13 +36,14 @@ const TextArea: FC<TextAreaProps> = ({
         aria-label={label}
         style={{
           width: "100%",
-          borderRadius: 8,
-          border: "1px solid #ccc",
+          borderRadius: 2,
+          border: "2px solid #000",
           margin: "8px 0",
           boxSizing: "border-box",
           padding: "8px 16px",
           fontSize: 16,
         }}
+        required={required}
       />
     </div>
   );

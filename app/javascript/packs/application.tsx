@@ -1,7 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import App from "../components/App";
 
 document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(<App />, document.getElementById("root"));
+  const rootDiv = document.createElement("div");
+  rootDiv.id = "root"; // Assign ID
+  document.body.appendChild(rootDiv);
+
+  const root = ReactDOM.createRoot(rootDiv);
+  root.render(<App />);
 });

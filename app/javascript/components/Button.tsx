@@ -1,8 +1,11 @@
-// Import React
 import React, { ReactNode, FC } from "react";
 
 type CommonProps = {
   children: ReactNode;
+  disabled?: boolean;
+  loading?: boolean;
+  loadingText?: string;
+  style?: React.CSSProperties;
 };
 
 type ClickableButtonProps = CommonProps & {
@@ -18,22 +21,30 @@ type SubmitButtonProps = CommonProps & {
 type ButtonProps = ClickableButtonProps | SubmitButtonProps;
 
 // Create and export the Button component
-const Button: FC<ButtonProps> = ({ onClick, children }) => {
+const Button: FC<ButtonProps> = ({
+  onClick,
+  children,
+  loading,
+  style,
+  disabled,
+}) => {
   return (
     <button
+      disabled={loading || disabled}
       style={{
-        backgroundColor: "black",
+        backgroundColor: disabled ? "gray" : "black",
         border: "none",
-        borderRadius: 4,
+        borderRadius: 2,
         cursor: "pointer",
         fontSize: 18,
         padding: "8px 16px",
         color: "white",
         fontWeight: "bold",
+        ...style,
       }}
       onClick={onClick}
     >
-      {children}
+      {loading ? <div className="loader" /> : children}
     </button>
   );
 };

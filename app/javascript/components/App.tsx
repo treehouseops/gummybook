@@ -1,5 +1,6 @@
 import React from "react";
 import QuestionForm from "./Form";
+import ImageWithTextBox from "./ImageWithTextBox";
 
 const App = () => {
   return (
@@ -17,10 +18,10 @@ const App = () => {
           maxWidth: 400,
         }}
       >
-        <img
-          style={{ width: "100%", border: "4px solid black" }}
+        <ImageWithTextBox
           src="/images/gumball.png"
           alt="Gumball"
+          text="What's working at Gumroad like?"
         />
         <QuestionForm />
       </div>

@@ -116,10 +116,7 @@ module Api
       csv = CSV.parse(csv_text, headers: true)
       document_embeddings = load_embeddings("book.pdf.embeddings.csv")
 
-      # build prompt
       prompt, context = build_prompt(question, csv, document_embeddings)
-
-      Rails.logger.info "Prompt: #{prompt}"
 
       params = COMPLETIONS_API_PARAMS.merge({ "prompt" => prompt })
 
@@ -145,28 +142,25 @@ module Api
       chosen_sections_len = 0
       chosen_sections_indexes = []
 
-      puts "Most relevant document sections: #{most_relevant_document_sections}"
+      Rails.logger.info "Most relevant document sections: #{most_relevant_document_sections}"
 
-      CSV.foreach("book.pdf.pages.csv", headers: true) do |row|
-        section_index = row["title"]
+      most_relevant_document_sections.each do |_, section_index|
+        row = csv.find { |row| row["title"] == section_index }
+        next unless row
 
-        # Check if section_index is in relevant_indexes
-        if relevant_indexes.include?(section_index)
-          tokens = row["tokens"].to_i
-          content = row["content"]
+        tokens = row["tokens"].to_i
+        content = row["content"]
 
-          chosen_sections_len += tokens + SEPARATOR.length
-          if chosen_sections_len > MAX_SECTION_LEN
-            space_left =
-              MAX_SECTION_LEN - chosen_sections_len - SEPARATOR.length
-            chosen_sections.append(SEPARATOR + content[0...space_left])
-            chosen_sections_indexes.append(section_index.to_s)
-            break
-          end
-
-          chosen_sections.append(SEPARATOR + content)
+        chosen_sections_len += tokens + SEPARATOR.length
+        if chosen_sections_len > MAX_SECTION_LEN
+          space_left = MAX_SECTION_LEN - chosen_sections_len - SEPARATOR.length
+          chosen_sections.append(SEPARATOR + content[0...space_left])
           chosen_sections_indexes.append(section_index.to_s)
+          break
         end
+
+        chosen_sections.append(SEPARATOR + content)
+        chosen_sections_indexes.append(section_index.to_s)
       end
 
       context = chosen_sections.join("")
