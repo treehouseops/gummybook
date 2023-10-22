@@ -14,17 +14,24 @@
  *= require_self
  */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
-body,
-#root {
+body {
   margin: 0;
   padding: 0;
-  height: 100%;
+}
+
+#root {
+  padding: 1em;
 }
 
 body {
   background: #f0fffa;
-  padding: 1em;
   font-family: "Poppins", sans-serif;
 }
 
@@ -59,6 +66,12 @@ div {
   width: 20px;
   height: 20px;
   animation: spin 2s linear infinite;
+
+  /* add loader styles for light background */
+  &.dark {
+    border: 3px solid #b0e3ed;
+    border-top: 3px solid #1d6a7a;
+  }
 }
 
 @keyframes spin {

@@ -26,8 +26,14 @@ module Api
   class QuestionsController < ApplicationController
     skip_before_action :verify_authenticity_token
 
+    def recent_questions
+      recent_questions = Question.order(created_at: :desc).limit(3)
+      render json: recent_questions, status: :ok
+    end
+
     def ask
       question_text = params[:question]
+      question_text[0] = question_text[0].upcase
       question_text += "?" unless question_text.end_with?("?")
 
       existing_question = Question.find_by(question: question_text)
