@@ -1,0 +1,132 @@
+.image-container {
+  position: relative;
+  margin-top: 1.2rem;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  animation: fadeIn 0.7s forwards;
+}
+
+.text-box {
+  position: absolute;
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  top: -1.2rem;
+  left: -1.2rem;
+  border: 2px solid black;
+  background-color: white;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  animation-delay: 0.3s;
+  font-weight: 500;
+  display: inline-flex;
+  white-space: break-spaces;
+  box-sizing: border-box;
+
+  @media (max-width: 468px) {
+    padding: 0.5rem 1rem;
+    font-size: 14px;
+    max-width: 80%;
+    left: -0.4rem;
+    top: -1rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0px, 0px, 0px) scale3d(0, 0, 0);
+    transform-style: preserve-3d;
+  }
+  to {
+    opacity: 1;
+    transform-style: preserve-3d;
+    transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1);
+  }
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  padding: 1em;
+}
+
+body {
+  background: #f0fffa;
+  font-family: "Poppins", sans-serif;
+}
+
+body,
+div,
+img {
+  box-sizing: border-box;
+}
+
+textarea,
+button,
+div {
+  font-family: inherit;
+}
+
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap; /* 1 */
+}
+
+.loader {
+  border: 3px solid #fff;
+  border-top: 3px solid #74d0e2;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+
+  /* add loader styles for light background */
+  &.dark {
+    border: 3px solid #b0e3ed;
+    border-top: 3px solid #1d6a7a;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
