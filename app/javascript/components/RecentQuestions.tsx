@@ -1,39 +1,26 @@
-import React, { useEffect, useState } from "react";
-
-interface Question {
-  question: string;
-  ask_count: number;
-  answer: string;
-}
+import React from "react";
+import { Question } from "./App";
 
 interface RecentQuestionsProps {
   onQuestionClick: (question: string, answer: string) => void;
+  loading: boolean;
+  error: string;
+  questions: Question[];
 }
 
 const RecentQuestions: React.FC<RecentQuestionsProps> = ({
+  questions,
   onQuestionClick,
+  loading,
+  error,
 }) => {
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    fetch("/api/questions/recent_questions")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setQuestions(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
+  if (error) {
+    return (
+      <div style={{ marginTop: 12 }}>
+        Something went wrong with loading recent questions!
+      </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -43,14 +30,6 @@ const RecentQuestions: React.FC<RecentQuestionsProps> = ({
         }}
       >
         <div className="loader dark" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div style={{ marginTop: 12 }}>
-        Something went wrong with loading recent questions!
       </div>
     );
   }

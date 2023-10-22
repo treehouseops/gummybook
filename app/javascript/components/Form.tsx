@@ -3,7 +3,11 @@ import axios from "axios";
 import Button from "./Button";
 import Textarea from "./Textarea";
 
-const QuestionForm: React.FC = () => {
+interface QuestionFormProps {
+  refetchQuestions: () => void;
+}
+
+const QuestionForm: React.FC<QuestionFormProps> = ({ refetchQuestions }) => {
   const [question, setQuestion] = useState<string>("");
   const [showAskAnother, setShowAskAnother] = useState<boolean>(false);
 
@@ -15,14 +19,14 @@ const QuestionForm: React.FC = () => {
 
   const showText = (message: string, index: number): void => {
     if (index < message.length) {
-      const interval = randomInteger(30, 70);
+      const interval = randomInteger(10, 40);
       if (answerOutputRef.current) {
         answerOutputRef.current.append(message[index++]);
       }
       setTimeout(() => showText(message, index), interval);
     } else {
-      // Implement any additional logic you need after the text is completely shown
       setShowAskAnother(true);
+      refetchQuestions();
     }
   };
 
@@ -40,7 +44,6 @@ const QuestionForm: React.FC = () => {
       setLoading(false);
       clearAnswer();
       setAnswer(response?.data?.answer || "");
-
       showText(response?.data?.answer || "", 0);
     } catch (error) {
       console.error("There was an error!", error);

@@ -169,8 +169,10 @@ module Api
         chosen_sections_indexes.append(section_index.to_s)
       end
 
+      header = "Please keep your answers to three sentences maximum, and speak in complete sentences.\n\nContext from the Gumroad company docs:\n"""
+
       context = chosen_sections.join("")
-      prompt = context + "\n\n\nQ: " + question + "\n\nA: "
+      prompt = header + context + "\n\n\nQ: " + question + "\n\nA: "
 
       return prompt, context
     end
