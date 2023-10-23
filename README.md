@@ -16,6 +16,7 @@ Demo: https://gummybook*5591c672e63c.herokuapp.com/
 
 ## What I could improve
 * Create a config file that stores all the values related to the specific PDF for easy modification
+* Handle all errors. I did handle and log a number along the way, but I didn't do a complete audit
 * CSS structure. I styled the majority of components inline, added global styles to application.css, and then when I had a bit more complicated styles for a bit of animation created a separate css file. Ideally I would style only at the component level.
 * For a project this size, I think I struck a good balance, but if I wanted to work on this further I would add:
     * Users, with the ability to upload their own pdfs and open them up for questions
