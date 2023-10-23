@@ -1,6 +1,6 @@
 Remixed version of: https://github.com/slavingia/askmybook/
 
-Demo: https://gummybook*5591c672e63c.herokuapp.com/
+Demo: https://gummybook-5591c672e63c.herokuapp.com/
 
 ## Architecture decisions
 * My main concern was speed, so I opted for as few libraries as possible and not introducing complicated patterns
