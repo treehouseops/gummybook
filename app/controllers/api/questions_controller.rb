@@ -33,6 +33,7 @@ module Api
 
     def ask
       question_text = params[:question]
+      question_text = question_text.strip
       question_text[0] = question_text[0].upcase
       question_text += "?" unless question_text.end_with?("?")
 

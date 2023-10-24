@@ -80,7 +80,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ refetchQuestions }) => {
         >
           {question?.charAt(0).toUpperCase() + question?.slice(1)}
           {/* add ? if question doesn't have it */}
-          {question?.slice(-1) !== "?" && "?"}
+          {question?.trim().slice(-1) !== "?" && "?"}
         </div>
       )}
 
